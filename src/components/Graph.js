@@ -9,8 +9,12 @@ export default function Graph() {
   const [month, setMonth] = useState(0);
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [selectYear, setselectYear] = useState(false);
-
+  const [isLoading,setisLoading] = useState(false);
    useEffect(() => {
+     setisLoading(true);
+     setTimeout(()=>{
+      setisLoading(false);
+    },1000);
     fetch(`http://localhost:3000/IND`)
       .then((res) => res.json())
       .then((data) => {
@@ -53,7 +57,7 @@ const lineChart = (
       }}
     />) :
     <div className='notFound'>
-      <h3>No Data Found</h3>
+      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFqvNPM-v1_ErZfSDFpiKAzWpa-AFhyjvHog&usqp=CAU'></img>
     </div>
   );
   const handleYear = (e)=>{
@@ -65,14 +69,22 @@ const lineChart = (
     console.log("mnothname", e.target.title);
     setMonth(e.target.value);
   }
+  console.log(isLoading);
   return (
   <>
 <div className='ParentContainer'>
 <div className="GraphContainer">
 <div className='heading'>
     <h1>Covid Report for {monthName[month]} {year}</h1>
+</div>
+  <div>
+    {!isLoading ?
+    <div>{lineChart}</div>:
+    <div>
+    <img src='https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif'></img>
+    </div>
+    }
   </div>
-      {lineChart}
 </div>
 <div className='selectContainer'>
 <div className='YearContainer'>
