@@ -7,10 +7,10 @@ export default function Graph() {
   const [dailyData, setDailyData] = useState([]);
   const [year, setYear] = useState(2019);
   const [month, setMonth] = useState(0);
+  const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [selectYear, setselectYear] = useState(false);
 
    useEffect(() => {
-    console.log("current",year, month);
     fetch(`http://localhost:3000/IND`)
       .then((res) => res.json())
       .then((data) => {
@@ -21,17 +21,17 @@ export default function Graph() {
         });
         const tempMonth = tempYear.filter((data)=>{
           var m = new Date(data.date).getMonth();
-          console.log("m",m, month);
           return(m == month);
         });
-        console.log("tempYear",tempYear);
-        console.log("tempMonth",tempMonth);
+        // console.log("tempYear",tempYear);
+        // console.log("tempMonth",tempMonth);
         const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
-        console.log("newData",newData);
+        // console.log("newData",newData);
         setDailyData(newData);
       });
   }, [year, month]);
 const lineChart = (
+  dailyData[0] ? (
     <Line
       data={{
         labels: dailyData.map(({ date }) => new Date(date).toLocaleDateString()),
@@ -51,47 +51,56 @@ const lineChart = (
         },
         ],
       }}
-    />
+    />) :
+    <div className='notFound'>
+      <h3>No Data Found</h3>
+    </div>
   );
   const handleYear = (e)=>{
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setYear(e.target.value);
     setselectYear(true);
   }
   const handleMonth = (e)=>{
-    console.log(e.target.value);
+    console.log("mnothname", e.target.title);
     setMonth(e.target.value);
   }
   return (
   <>
-  <div className='yearPicker'>
-  <select id="year" name="year" onChange={e => {handleYear(e)} }>
-    <option value="2019">2019</option>
-    <option value="2020">2020</option>
-    <option value="2021">2021</option>
-    <option value="2022">2022</option>
- </select>
- {selectYear == true ?
- <select id="month" name="month" onChange={e => {handleMonth(e)}}>
- <option value="0">January</option>
- <option value="1">February</option>
- <option value="2">March</option>
- <option value="3">April</option>
- <option value="4">May</option>
- <option value="5">June</option>
- <option value="6">July</option>
- <option value="7">August</option>
- <option value="8">September</option>
- <option value="9">October</option>
- <option value="10">November</option>
- <option value="11">December</option>
-</select>
-:<div></div>
-}
+<div className='ParentContainer'>
+<div className="GraphContainer">
+<div className='heading'>
+    <h1>Covid Report for {monthName[month]} {year}</h1>
   </div>
-    <div className="container">
       {lineChart}
-    </div>
+</div>
+<div className='selectContainer'>
+<div className='YearContainer'>
+  <select id="year" name="year" onChange={e => {handleYear(e)} }>
+    <option className="option"  title=""  value="2019">2019</option >
+    <option className="option"  title=""  value="2020">2020</option >
+    <option className="option"  title=""  value="2021">2021</option >
+    <option className="option"  title=""  value="2022">2022</option >
+ </select>
+</div>
+<div className='MonthContainer' >
+ <select id="month" onChange={e => {handleMonth(e)}} disabled = {!selectYear}>
+ <option  className="option" title="January"  value="0" >January</option >
+ <option className="option"  title="February"  value="1">February</option >
+ <option className="option"  title="March"  value="2">March</option >
+ <option className="option"  title="April"  value="3">April</option >
+ <option className="option"  title="May"  value="4">May</option >
+ <option className="option"  title="June"  value="5">June</option >
+ <option className="option"  title="July"  value="6">July</option >
+ <option className="option"  title="August"  value="7">August</option >
+ <option className="option"  title="September"  value="8">September</option >
+ <option className="option"  title="October"  value="9">October</option >
+ <option className="option"  title="November"  value="10">November</option >
+ <option className="option"  title="December"  value="11">December</option >
+</select>
+</div>
+</div>
+</div>
   </>
   )
 }

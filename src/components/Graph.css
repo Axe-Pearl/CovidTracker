@@ -1,11 +1,67 @@
-.container {
+.ParentContainer{
+    margin-top:100px;
+    display: flex;
+    justify-content: center;
+}
+.GraphContainer{
     display: flex;
     justify-content: center;
     width: 65%;
+    flex-direction: column;
   }
   
   @media only screen and (max-width: 770px) {
-    .container {
+    .GraphContainer{
       width: 100%;
     }
   }
+
+.selectContainer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    align-items: flex-start;
+}
+#year{
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: beige;;
+}
+#month{
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: beige;
+}
+.YearContainer::before{
+    content: "Year ";
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+}
+.MonthContainer::before{
+    content: "Month ";
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+}
+
+.notFound{
+    background-color: yellow;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.option{
+    background-color: beige;
+    width: 150px;
+    height: 200px;
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
