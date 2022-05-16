@@ -14,11 +14,12 @@ export default function Graph() {
      setisLoading(true);
      setTimeout(()=>{
       setisLoading(false);
-    },1000);
-    fetch(`http://localhost:3000/IND`)
+    },500);
+    fetch(`https://magenta-marshmallow-f6fee2.netlify.app/db.json`)
       .then((res) => res.json())
       .then((data) => {
         const tempData = data.data;
+        console.log(tempData);
         const tempYear = tempData.filter((data)=>{
            var y =  new Date(data.date).getFullYear();
            return(y == year);
