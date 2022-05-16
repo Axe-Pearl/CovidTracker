@@ -30,6 +30,7 @@ export default function Graph() {
         });
         const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
         setDailyData(newData);
+        console.log("DailyData",dailyData);
       });
   }, [year, month]);
 const lineChart = (
