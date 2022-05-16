@@ -29,7 +29,9 @@ export default function Graph() {
           return(m == month);
         });
         const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
-        setDailyData(newData);
+        var stringified = JSON.stringify(newData);
+        var parsedObj = JSON.parse(stringified);
+        setDailyData(parsedObj);
         console.log("DailyData",dailyData);
       });
   }, [year, month]);
