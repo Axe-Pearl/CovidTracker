@@ -2,6 +2,7 @@
   "name": "covid",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://magenta-marshmallow-f6fee2.netlify.app/db.json",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
