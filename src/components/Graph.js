@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from 'react';
 import { Line } from 'react-chartjs-2';
+// eslint-disable-next-line
 import Chart from 'chart.js/auto';
 import "./Graph.css";
 
@@ -19,7 +20,6 @@ export default function Graph() {
       .then((res) => res.json())
       .then((data) => {
         const tempData = data.data;
-        console.log(tempData);
         const tempYear = tempData.filter((data)=>{
            var y =  new Date(data.date).getFullYear();
            return(y == year);
@@ -28,10 +28,7 @@ export default function Graph() {
           var m = new Date(data.date).getMonth();
           return(m == month);
         });
-        // console.log("tempYear",tempYear);
-        // console.log("tempMonth",tempMonth);
         const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
-        // console.log("newData",newData);
         setDailyData(newData);
       });
   }, [year, month]);
@@ -62,7 +59,6 @@ const lineChart = (
     </div>
   );
   const handleYear = (e)=>{
-    // console.log(e.target.value);
     setYear(e.target.value);
     setselectYear(true);
   }
