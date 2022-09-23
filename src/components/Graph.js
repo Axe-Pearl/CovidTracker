@@ -30,6 +30,7 @@ export default function Graph() {
           return(m === month);
         });
         const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
+        console.log("newData",newData);
         var stringified = JSON.stringify(newData);
         var parsedObj = JSON.parse(stringified);
         console.log("selected data",parsedObj);
