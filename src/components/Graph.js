@@ -19,7 +19,7 @@ export default function Graph() {
     fetch("https://magenta-marshmallow-f6fee2.netlify.app/db.json")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log("this is data", data);
         const tempData = data.data;
         const tempYear = tempData.filter((data)=>{
            var y =  new Date(data.date).getFullYear();
