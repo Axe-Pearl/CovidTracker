@@ -17,23 +17,23 @@ export default function Graph() {
       setisLoading(false);
     },500);
     fetch("https://magenta-marshmallow-f6fee2.netlify.app/db.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("this is data", data);
-        const tempData = data.data;
-        const tempYear = tempData.filter((data)=>{
-           var y =  new Date(data.date).getFullYear();
+      .then((resp) => resp.json())
+      .then((res) => {
+        console.log("this is data", res.data);
+        const tempDatas = res.data;
+        const tempYears = tempDatas.filter((tempData)=>{
+           var y =  new Date(tempData.date).getFullYear();
            return(y === year);
         });
-        const tempMonth = tempYear.filter((data)=>{
-          var m = new Date(data.date).getMonth();
+        const tempMonths = tempYears.filter((tempYear)=>{
+          var m = new Date(tempYear.date).getMonth();
           return(m === month);
         });
-        const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
+        const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
         var stringified = JSON.stringify(newData);
         var parsedObj = JSON.parse(stringified);
         setDailyData(parsedObj);
-        // console.log("DailyData",dailyData);
+        console.log("DailyData",dailyData);
       });
   }, [year, month]);
 const lineChart = (
