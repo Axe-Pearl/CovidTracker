@@ -23,17 +23,17 @@ export default function Graph() {
         const tempData = data.data;
         const tempYear = tempData.filter((data)=>{
            var y =  new Date(data.date).getFullYear();
-           return(y == year);
+           return(y === year);
         });
         const tempMonth = tempYear.filter((data)=>{
           var m = new Date(data.date).getMonth();
-          return(m == month);
+          return(m === month);
         });
         const newData = tempMonth.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
         var stringified = JSON.stringify(newData);
         var parsedObj = JSON.parse(stringified);
         setDailyData(parsedObj);
-        console.log("DailyData",dailyData);
+        // console.log("DailyData",dailyData);
       });
   }, [year, month]);
 const lineChart = (
@@ -59,7 +59,7 @@ const lineChart = (
       }}
     />) :
     <div className='notFound'>
-      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFqvNPM-v1_ErZfSDFpiKAzWpa-AFhyjvHog&usqp=CAU'></img>
+      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFqvNPM-v1_ErZfSDFpiKAzWpa-AFhyjvHog&usqp=CAU' alt="notFound"></img>
     </div>
   );
   const handleYear = (e)=>{
@@ -82,7 +82,7 @@ const lineChart = (
     {!isLoading ?
     <div>{lineChart}</div>:
     <div>
-    <img src='https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif'></img>
+    <img src='https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif' alt="loading..."></img>
     </div>
     }
   </div>
