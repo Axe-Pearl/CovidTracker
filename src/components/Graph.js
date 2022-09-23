@@ -32,6 +32,7 @@ export default function Graph() {
         const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
         var stringified = JSON.stringify(newData);
         var parsedObj = JSON.parse(stringified);
+        console.log("selected data",parsedObj);
         setDailyData(parsedObj);
       });
   }, [year, month]);
