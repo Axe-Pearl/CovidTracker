@@ -27,24 +27,23 @@ export default function Graph() {
       });
      }
      fetchLocation();
-        const tempYears = tempDatas.filter((tempData)=>{
-           var y =  new Date(tempData.date).getFullYear();
-           return(y === year);
-        });
-        console.log("tempYears: ",tempYears);
-        const tempMonths = tempYears.filter((tempYear)=>{
-          var m = new Date(tempYear.date).getMonth();
-          return(m === month);
-        });
-        console.log("tempMonths: ", tempMonths);
-        const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
-        console.log("newData",newData);
-        var stringified = JSON.stringify(newData);
-        var parsedObj = JSON.parse(stringified);
-        console.log("selected data",parsedObj);
-        setDailyData(parsedObj);
   }, [year, month]);
-   console.log("DailyData",dailyData);
+  const tempYears = tempDatas.filter((tempData)=>{
+    var y =  new Date(tempData.date).getFullYear();
+    return(y === year);
+ });
+ console.log("tempYears: ",tempYears);
+ const tempMonths = tempYears.filter((tempYear)=>{
+   var m = new Date(tempYear.date).getMonth();
+   return(m === month);
+ });
+ console.log("tempMonths: ", tempMonths);
+ const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
+ console.log("newData",newData);
+ var stringified = JSON.stringify(newData);
+ var parsedObj = JSON.parse(stringified);
+ console.log("selected data",parsedObj);
+ setDailyData(parsedObj);
 const lineChart = (
   dailyData[0] ? (
     <Line
