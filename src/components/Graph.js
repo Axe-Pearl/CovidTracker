@@ -28,19 +28,21 @@ export default function Graph() {
      }
      fetchLocation();
   }, [year, month]);
-  console.log("tempDatas", tempDatas);
-  const tempYears = tempDatas.filter((tempData)=>{
-    var y =  new Date(tempData.date).getFullYear();
-    return(y === year);
- });
- const tempMonths = tempYears.filter((tempYear)=>{
-   var m = new Date(tempYear.date).getMonth();
-   return(m === month);
- });
- const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
- var stringified = JSON.stringify(newData);
- var parsedObj = JSON.parse(stringified);
- setDailyData(parsedObj);
+  useEffect(()=>{
+    console.log("tempDatas", tempDatas);
+    const tempYears = tempDatas.filter((tempData)=>{
+      var y =  new Date(tempData.date).getFullYear();
+      return(y === year);
+   });
+   const tempMonths = tempYears.filter((tempYear)=>{
+     var m = new Date(tempYear.date).getMonth();
+     return(m === month);
+   });
+   const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
+   var stringified = JSON.stringify(newData);
+   var parsedObj = JSON.parse(stringified);
+   setDailyData(parsedObj);
+  },[tempDatas]);
  console.log("Daily data", dailyData);
 const lineChart = (
   dailyData[0] ? (
