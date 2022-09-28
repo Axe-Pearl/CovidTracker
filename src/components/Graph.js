@@ -28,8 +28,6 @@ export default function Graph() {
      }
      fetchLocation();
   }, [year, month]);
-  return "tempDatas: " + tempDatas;
-  
   const tempYears = tempDatas.filter((tempData)=>{
     var y =  new Date(tempData.date).getFullYear();
     return(y === year);
