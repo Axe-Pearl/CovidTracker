@@ -39,7 +39,7 @@ export default function Graph() {
       });
      }
      fetchLocation();
-  }, [year, month]);
+  }, [year, month, tempDatas]);
 const lineChart = (
   dailyData[0] ? (
     <Line
