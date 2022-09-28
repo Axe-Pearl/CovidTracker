@@ -8,7 +8,11 @@ export default function Graph() {
   const [dailyData, setDailyData] = useState([]);
   const [year, setYear] = useState(2019);
   const [month, setMonth] = useState(0);
+
   const [tempDatas, settempDatas] = useState([]);
+  const [tempYears, settempYears] = useState([]);
+  const [tempMonths, settempMonths] = useState([]);
+  const [newData, setnewData] = useState([]);
 
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [selectYear, setselectYear] = useState(false);
@@ -30,18 +34,16 @@ export default function Graph() {
   }, []);
 
   useEffect(()=>{
-    const tempYears = tempDatas.filter((tempData)=>{
+    settempYears(tempDatas.filter((tempData)=>{
       var y =  new Date(tempData.date).getFullYear();
       return(y === year);
-   });
-   const tempMonths = tempYears.filter((tempYear)=>{
+   }));
+   settempMonths(tempYears.filter((tempYear)=>{
      var m = new Date(tempYear.date).getMonth();
      return(m === month);
-   });
-   const newData = tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases}));
-   var stringified = JSON.stringify(newData);
-   var parsedObj = JSON.parse(stringified);
-   setDailyData(parsedObj);
+   }));
+   setnewData(tempMonths.map(({date,new_cases,total_cases})=>({date:date,new_cases:new_cases,total_cases:total_cases})));
+   setDailyData(JSON.parse(JSON.stringify(newData)));
   },[year, month,tempDatas]);
 
  console.log("Daily data", dailyData);
