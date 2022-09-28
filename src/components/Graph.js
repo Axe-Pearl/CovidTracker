@@ -42,8 +42,8 @@ export default function Graph() {
    var stringified = JSON.stringify(newData);
    var parsedObj = JSON.parse(stringified);
    setDailyData(parsedObj);
-  },[year, month]);
-  
+  },[year, month,tempDatas]);
+
  console.log("Daily data", dailyData);
 const lineChart = (
   dailyData[0] ? (
