@@ -8,6 +8,8 @@ export default function Graph() {
   const [dailyData, setDailyData] = useState([]);
   const [year, setYear] = useState(2019);
   const [month, setMonth] = useState(0);
+  const [tempDatas, settempDatas] = useState([]);
+
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [selectYear, setselectYear] = useState(false);
   const [isLoading,setisLoading] = useState(false);
@@ -16,11 +18,15 @@ export default function Graph() {
      setTimeout(()=>{
       setisLoading(false);
     },500);
-    fetch("https://magenta-marshmallow-f6fee2.netlify.app/db.json")
+    const fetchLocation = async() => {
+      await fetch("https://magenta-marshmallow-f6fee2.netlify.app/db.json")
       .then((resp) => resp.json())
       .then((res) => {
         console.log("this is data", res.data);
-        const tempDatas = res.data;
+        settempDatas(res.data);
+      });
+     }
+      console.log("tempDatas: ", tempDatas);
         const tempYears = tempDatas.filter((tempData)=>{
            var y =  new Date(tempData.date).getFullYear();
            return(y === year);
@@ -37,7 +43,6 @@ export default function Graph() {
         var parsedObj = JSON.parse(stringified);
         console.log("selected data",parsedObj);
         setDailyData(parsedObj);
-      });
   }, [year, month]);
    console.log("DailyData",dailyData);
 const lineChart = (
